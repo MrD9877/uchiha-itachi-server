@@ -1,7 +1,7 @@
 {
-  "name": "dhuruv-bansal",
+  "name": "uchiha-itachi-server",
   "version": "1.0.0",
-  "description": "function you need in every project in one package",
+  "description": "server side of uchiha",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrD9877/dhuruv-bansal.git"
+    "url": "git+https://github.com/MrD9877/uchiha-itachi-server.git"
   },
   "keywords": [
     "dhuruv",
@@ -23,12 +23,18 @@
   "author": "Dhuruv Bansal",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MrD9877/dhuruv-bansal/issues"
+    "url": "https://github.com/MrD9877/uchiha-itachi-server/issues"
   },
-  "homepage": "https://github.com/MrD9877/dhuruv-bansal#readme",
+  "homepage": "https://github.com/MrD9877/uchiha-itachi-server#readme",
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.8",
     "nodemon": "^3.0.0",
     "ts-node": "^10.0.0",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "jsonwebtoken": "^9.0.2",
+    "socket.io": "^4.8.1"
   }
 }
