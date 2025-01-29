@@ -1,0 +1,42 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Dependency directories
+jspm_packages/
+
+# Environment variables
+.env
+.env.*.local
+
+# VSCode settings
+.vscode/
+
+# MacOS system files
+.DS_Store
+
+# Linux system files
+*.swp
+
+# Temporary files
+tmp/
+temp/
+
+# Coverage reports (if you're using tools like Jest)
+coverage/
+
+# IDE-specific files
+.idea/
+*.iml

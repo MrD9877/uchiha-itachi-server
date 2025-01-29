@@ -1,0 +1,34 @@
+{
+  "name": "dhuruv-bansal",
+  "version": "1.0.0",
+  "description": "function you need in every project in one package",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon",
+    "test": "echo \"No tests yet\"",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrD9877/dhuruv-bansal.git"
+  },
+  "keywords": [
+    "dhuruv",
+    "madara",
+    "uchiha",
+    "shubhu"
+  ],
+  "author": "Dhuruv Bansal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrD9877/dhuruv-bansal/issues"
+  },
+  "homepage": "https://github.com/MrD9877/dhuruv-bansal#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^5.0.0"
+  }
+}
