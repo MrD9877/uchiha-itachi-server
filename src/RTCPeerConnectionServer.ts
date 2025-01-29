@@ -4,11 +4,6 @@ import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-type RTCComponentType = {
-  id: string;
-  coonectId: string;
-};
-
 type RTCSendOfferObj = {
   offer: RTCSessionDescriptionInit | undefined;
   from: string;
