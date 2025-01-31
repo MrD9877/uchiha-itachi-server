@@ -1,6 +1,6 @@
 import { Socket, Server } from "socket.io";
 import { SocketActions } from "./tsTypes/peerActions";
-import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -32,7 +32,12 @@ type RTCConnectionEstablishedSend = {
 };
 type RTCConnectionEstablishedReceived = {
   success: boolean;
-  users: string[];
+  from: string;
+};
+
+type RTCcloseConnectionObj = {
+  from: string;
+  to: string;
 };
 
 interface CustomJwtPayload extends JwtPayload {
@@ -41,13 +46,11 @@ interface CustomJwtPayload extends JwtPayload {
 
 class RTCSocket {
   constructor(socket: Socket, io: Server) {
-    socket.on("testSocket", (data) => {
-      console.log(data);
-    });
     socket.on(SocketActions.sendOffer, async ({ offer, from, to }: RTCSendOfferObj) => {
       if (!process.env.LOCAL_SECREAT) throw new Error("NO LOCAL SECREAT");
       try {
         const data = jwt.verify(from, process.env.LOCAL_SECREAT) as CustomJwtPayload;
+        console.log(data, SocketActions.receivedOffer, to);
         const user = data.room;
         const forward: RTCReceiveOfferObj = { from: user, offer };
         io.to(to).emit(SocketActions.receivedOffer, forward);
@@ -66,14 +69,24 @@ class RTCSocket {
         this.unAuthorized(socket, io, `${err.name}:${err.message}`);
       }
     });
-    socket.on(SocketActions.sendOffer, async ({ from, to, success }: RTCConnectionEstablishedSend) => {
+    socket.on(SocketActions.connectionEstablished, async ({ from, to, success }: RTCConnectionEstablishedSend) => {
       if (!process.env.LOCAL_SECREAT) throw new Error("NO LOCAL SECREAT");
       try {
         const data = jwt.verify(from, process.env.LOCAL_SECREAT) as CustomJwtPayload;
         const user = data.room;
-        const forward: RTCConnectionEstablishedReceived = { users: [user, to], success };
+        const forward: RTCConnectionEstablishedReceived = { from: user, success };
         io.to(to).emit(SocketActions.connectionEstablished, forward);
-        io.to(user).emit(SocketActions.connectionEstablished, forward);
+      } catch (err: any) {
+        this.unAuthorized(socket, io, `${err.name}:${err.message}`);
+      }
+    });
+    socket.on(SocketActions.closeConnection, async ({ from, to }: RTCcloseConnectionObj) => {
+      if (!process.env.LOCAL_SECREAT) throw new Error("NO LOCAL SECREAT");
+      try {
+        const data = jwt.verify(from, process.env.LOCAL_SECREAT) as CustomJwtPayload;
+        const user = data.room;
+        const forward: { from: string } = { from: user };
+        io.to(to).emit(SocketActions.closeConnection, forward);
       } catch (err: any) {
         this.unAuthorized(socket, io, `${err.name}:${err.message}`);
       }
